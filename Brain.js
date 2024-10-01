@@ -1,62 +1,64 @@
-var num1 = 0;
+var num1 =0;
 var op;
-var num2 = 0;
+var num2 =0;
 var opeshown = false;
+var numbuilder = false;
 const btnum = document.querySelectorAll(".number");
 const btnop = document.querySelectorAll(".ope");
 const btnequal = document.querySelector("#equal");
-var sn2 = document.createElement('e');
-var sn1 = document.createElement('e');
-var sop = document.createElement('e');
-var eq = document.createElement('e');
+const btnclr = document.querySelector("#clear");
+var sn = document.createElement('e');
+document.querySelector('#num').appendChild(sn);
 
-
+btnclr.addEventListener("click", function(e){
+    num1 = 0;
+    num2 = 0;
+    op = "";
+    opeshown = false;
+    numbuilder = false;
+    sn.textContent = "";
+});
 
 btnum.forEach(function(button) {
     button.addEventListener("click", function(e) {
-        console.log(e.target.innerHTML);
-        buildnum(e.target.innerHTML)
-        console.log(num1 + "   hi ther "+ num2);
+        buildnum(parseInt(e.target.innerHTML));
     });
 });
 btnop.forEach(function(button) {
     button.addEventListener("click", function(e) {
-        if(opeshown === false){
-            console.log(e.target.innerHTML);
-            op = e.target.innerHTML
-            sop.textContent = `${op}`
-            document.querySelector('#oper').appendChild(sop);
+        if(!opeshown){
+            op = e.target.innerHTML;
+            numbuilder = !numbuilder;
             opeshown = true;
         }
         else{
-            let ans = showres();
-            num1 = ans;
-            document.removeChild();
-            document.querySelector('#num1').appendChild(sn1);
+            showres();
+            op = e.target.innerHTML;
+            numbuilder = ! numbuilder;
         }
+        console.log(`${num1} - ${num2} - ${numbuilder}`)
     });
 });
 btnequal.addEventListener("click", showres);
     
 function showres(){
-    num1 = parseInt(num1);
-    num2 = parseInt(num2);
     let ans = operate();
-    eq.textContent = `= ${ans}`
-    document.querySelector('#ans').appendChild(eq);
-    console.log(ans);
-    return ans;
-}
+    sn.textContent = ans;
+    num2 = 0;
+    num1 = ans;
+    numbuilder = ! numbuilder;
+    return num1;
+}`                              `
 function buildnum(add){
-    if(opeshown){
+    if(numbuilder){
+        num2*=10;
         num2 += add;
-        sn2.textContent = `${num2}`
-        document.querySelector('#num2').appendChild(sn2);
+        sn.textContent = `${num2}`;
     }
     else{
+        num1 *= 10;
         num1 += add;
-        sn1.textContent = `${num1}`
-        document.querySelector('#num1').appendChild(sn1);
+        sn.textContent = `${num1}`;
     }
 }
 

@@ -2,3 +2,14 @@
     display: flex;
     border: 2px solid black;
 }
+.btnnum{
+    display: flex;
+    width: 90px;
+    height:120px;
+    flex-wrap: wrap;
+}
+.number{
+    width:30px;
+    height:30px;
+    box-sizing: border-box;
+}
